@@ -14,6 +14,19 @@ This is a simple test suite for the free API at https://www.openbrewerydb.org/ .
 
 Test run should include 3 iterations of 4 requests each, and a total of 33 tests
 
-#
+# Test information
+Each request is called with two happy-path tests (Iterations 1 and 2), and one negative test (Iteration 3)
+
+1) List Breweries - https://api.openbrewerydb.org/breweries
+Iteration 1  
+- verifies filtering via the 'by_state' attribute, and 
+- verifies the default number of results per page (20).
+Iteration 2  
+- verifies filtering via the 'by_state' attribute, 
+- verifies 'per_page' attribute (results limited to 5, total for this state is 9), and
+- verifies sorting (by city, descending order).
+NOTE - there appears to be an error in either the API or the documentation for ascending/descending flag. https://www.openbrewerydb.org/documentation/01-listbreweries states that "+" produces descending order, but this seems to produce ascending order on the 'city' field (A to Z). This test has been left in a failure state.
+
+2) 
 
 
