@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "a2a5052c-a3f3-4bb3-9953-172c257a51e6",
+		"name": "OpenBreweryValidation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Breweries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3fe03def-fef5-4cc8-9206-c20cec95ca4a",
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"let resultsLength = pm.variables.get(\"listResultsLength\");\r",
+							"let state = pm.variables.get(\"by_state\");\r",
+							"let sort = pm.variables.get(\"sort\");\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct number of results returned, expected: \"+resultsLength, function () {\r",
+							"    pm.expect(response.length).to.eql(resultsLength);\r",
+							"});\r",
+							"\r",
+							"if (pm.variables.get(\"IterationType\") === \"HappyPath\"){\r",
+							"    pm.test(\"All results must have correct state, filered by: \"+state, function () {\r",
+							"        for(var i = 0; i < resultsLength; i++){\r",
+							"            pm.expect(response[i].state).to.eql(state);\r",
+							"        }\r",
+							"    });\r",
+							"    if(sort !== \"\"){\r",
+							"         pm.test(\"If sort is on, ensure results are sorted correctly\", function () {\r",
+							"            let citiesReference = [\"Port Allen\", \"Mililani\", \"Lihue\", \"Lahaina\", \"Lahaina\"];\r",
+							"            for(var i = 0; i < resultsLength; i++){\r",
+							"                pm.expect(response[i].city).to.eql(citiesReference[i]);\r",
+							"            }\r",
+							"        });\r",
+							"    }\r",
+							"    \r",
+							"} else {\r",
+							"    \r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openbrewerydb.org/breweries?by_city={{by_city}}&by_state={{by_state}}&sort={{sort}}&per_page={{per_page}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openbrewerydb",
+						"org"
+					],
+					"path": [
+						"breweries"
+					],
+					"query": [
+						{
+							"key": "by_city",
+							"value": "{{by_city}}"
+						},
+						{
+							"key": "by_state",
+							"value": "{{by_state}}"
+						},
+						{
+							"key": "sort",
+							"value": "{{sort}}"
+						},
+						{
+							"key": "per_page",
+							"value": "{{per_page}}"
+						}
+					]
+				},
+				"description": "https://www.openbrewerydb.org/documentation/01-listbreweries"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Brewery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aed34d97-d444-435e-b7f5-bee3d81199f0",
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"var name = pm.variables.get(\"getName\");\r",
+							"let city = pm.variables.get(\"getCity\");\r",
+							"let street = pm.variables.get(\"getStreet\");\r",
+							"\r",
+							"if (pm.variables.get(\"IterationType\") === \"HappyPath\"){\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    pm.test(\"Correct brewery name, expected: \"+name, function () {\r",
+							"        pm.expect(response.name).to.eql(name);\r",
+							"    });\r",
+							"    pm.test(\"Correct city, expected: \"+city, function () {\r",
+							"        pm.expect(response.city).to.eql(city);\r",
+							"    });\r",
+							"    pm.test(\"Correct street address, expected: \"+street, function () {\r",
+							"        pm.expect(response.street).to.eql(street);\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Status code is 404\", function () {\r",
+							"        pm.response.to.have.status(404);\r",
+							"    });\r",
+							"    pm.test(\"Error message appears\", function () {\r",
+							"        pm.expect(response.message).to.eql(\"Couldn't find Brewery with 'id'=9999\");\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openbrewerydb.org/breweries/{{getID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openbrewerydb",
+						"org"
+					],
+					"path": [
+						"breweries",
+						"{{getID}}"
+					]
+				},
+				"description": "https://www.openbrewerydb.org/documentation/02-getbrewery"
+			},
+			"response": []
+		},
+		{
+			"name": "Search Breweries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "660d3096-36c7-49cf-9162-91adfc634bc9",
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"let query = pm.variables.get(\"query\");\r",
+							"let resultsLength = pm.variables.get(\"searchResultsLength\");\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct number of results returned, expected \"+resultsLength, function () {\r",
+							"    pm.expect(response.length).to.eql(resultsLength);\r",
+							"});\r",
+							"\r",
+							"if (pm.variables.get(\"IterationType\") === \"HappyPath\"){\r",
+							"    \r",
+							"} else {\r",
+							"    \r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openbrewerydb.org/breweries/search?query={{query}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openbrewerydb",
+						"org"
+					],
+					"path": [
+						"breweries",
+						"search"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{{query}}"
+						}
+					]
+				},
+				"description": "https://www.openbrewerydb.org/documentation/03-search"
+			},
+			"response": []
+		},
+		{
+			"name": "Autocomplete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e19dd7a-995f-4115-a50f-d87b9e997f85",
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"let query = pm.variables.get(\"query\");\r",
+							"let resultsLength = pm.variables.get(\"autocompleteResultsLength\");\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct number of results returned, expected \"+resultsLength, function () {\r",
+							"    pm.expect(response.length).to.eql(resultsLength);\r",
+							"});\r",
+							"\r",
+							"if (pm.variables.get(\"IterationType\") === \"HappyPath\"){\r",
+							"     pm.test(\"All results must contain query in the brewery name, expected: \"+query, function () {\r",
+							"        for(var i = 0; i < resultsLength; i++){\r",
+							"            pm.expect(response[i].name).to.include(query);\r",
+							"        }\r",
+							"    });\r",
+							"} else {\r",
+							"    \r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openbrewerydb.org/breweries/autocomplete?query={{query}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openbrewerydb",
+						"org"
+					],
+					"path": [
+						"breweries",
+						"autocomplete"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{{query}}"
+						}
+					]
+				},
+				"description": "https://www.openbrewerydb.org/documentation/04-autocomplete"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

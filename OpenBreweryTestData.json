@@ -1,0 +1,56 @@
+[
+  {
+    "IterationType": "HappyPath",
+
+    "by_state": "Ohio",
+    "by_city": "",
+    "sort": "",
+    "per_page": "",
+    "listResultsLength": 20,
+
+    "getID": 5494,
+    "getName": "MadTree Brewing",
+    "getCity": "Cincinnati",
+    "getStreet": "3301 Madison Rd",
+
+    "query": "Dog",
+    "searchResultsLength": 49,
+    "autocompleteResultsLength": 15
+  },
+  {
+    "IterationType": "HappyPath",
+
+    "by_state": "Hawaii",
+    "by_city":  "",
+    "sort": "-city",
+    "per_page":  "5",
+    "listResultsLength":  5,
+
+    "getID": 299,
+    "getName": "Almanac Beer Company",
+    "getCity": "Alameda",
+    "getStreet": "651B W Tower Ave",
+
+    "query": "Brick",
+    "searchResultsLength": 18,
+    "autocompleteResultsLength": 15
+  },
+  {
+    "IterationType": "NegativePath",
+
+    "by_state":  "",
+    "by_city": "NonexistantCity",
+    "sort": "",
+    "per_page":  "",
+    "listResultsLength": 0,
+
+    "getID": 9999,
+    "getName": "",
+    "getCity": "",
+    "getStreet": "",
+
+    "query": "NonexistantBreweryName",
+    "searchResultsLength": 0,
+    "autocompleteResultsLength": 0
+  }
+]
