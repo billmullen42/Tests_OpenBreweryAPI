@@ -22,7 +22,7 @@
 
     "by_state": "Hawaii",
     "by_city":  "",
-    "sort": "-city",
+    "sort": "+city",
     "per_page":  "5",
     "listResultsLength":  5,
 
