@@ -17,7 +17,8 @@ Test run should include 3 iterations of 4 requests each, and a total of 33 tests
 # Test information
 Each request is called with two happy-path tests (Iterations 1 and 2), and one negative test (Iteration 3)
 
-## List Breweries - https://api.openbrewerydb.org/breweries
+## List Breweries 
+https://api.openbrewerydb.org/breweries
 
 Iteration 1  
 - verifies filtering via the 'by_state' attribute, and 
@@ -30,17 +31,20 @@ Iteration 2
 
 NOTE: There appears to be an error in either the API or the documentation for ascending/descending flag. https://www.openbrewerydb.org/documentation/01-listbreweries states that "+" produces descending order, but this seems to produce ascending order on the 'city' field (A to Z). This test has been left in a failure state.
 
-## Get Brewery - https://api.openbrewerydb.org/breweries/***
+## Get Brewery 
+https://api.openbrewerydb.org/breweries/***
 
 Iterations 1 and 2
 - verify that the correct brewery entry is retrieved.
 
-## Search Breweries - https://api.openbrewerydb.org/breweries/search?query=***
+## Search Breweries 
+https://api.openbrewerydb.org/breweries/search?query=***
 
 Iterations 1 and 2
 - verify that the expected number of results are retrieved.
 
-## Autocomplete - https://api.openbrewerydb.org/breweries/autocomplete?query=***
+## Autocomplete 
+https://api.openbrewerydb.org/breweries/autocomplete?query=***
 
 Iterations 1 and 2
 - verify that the expected number of results are retrieved, and
