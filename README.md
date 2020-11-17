@@ -12,10 +12,10 @@ This is a simple test suite for the free API at https://www.openbrewerydb.org/ .
 7) (personal preference) In the checkboxes below, select "Save responses" and "Keep variable values".
 8) Click the blue button "Run OpenBrewery..."
 
-Test run should include 3 iterations of 4 requests each, and a total of 33 tests
+Test run should include 3 iterations of 4 requests each, and a total of 33 tests.
 
 # Test information
-Each request is called with two happy-path tests (Iterations 1 and 2), and one negative test (Iteration 3)
+Each request is called with two happy-path tests (Iterations 1 and 2), and one negative test (Iteration 3).
 
 ## List Breweries 
 https://api.openbrewerydb.org/breweries
